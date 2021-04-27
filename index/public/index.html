@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, viewport-fit=cover" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no"
+    />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title></title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+  <script src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+  <script src="./js/jquery-1.12.4.min.js"></script>
+  <script>
+    //-------------begin
+    //设置分享内容
+    var title = "心象 当代水墨艺术展(深圳)直播图库";
+    var desc ="从「物象」到「心象」的广阔叙事亦是城市从空间到无间的万物从容没有一个人无缘无故的存在与游走某处";
+    var indexHref = window.location.href;
+    var shareLink = indexHref.toString(); //分享链接
+    var shareImgUrl =
+      "http://shechidichan.com/meiheng/pictrueDepot/uploadImages/2020-09-25_pU5QQuM3yYL3eLcmyT8r.jpg"; //分享图片
+    //-------------end
+    getSgt();
+    function getSgt() {
+      $.ajax({
+        type: "GET",
+        url:
+          "https://www.mxjrluxury.com/mh/weixin/meiheng?url=" +
+          encodeURIComponent(window.location.href.split("#")[0]),
+        dataType: "json",
+        success: function (response) {
+          //  	console.log(response)
+          initWeChat(
+            response.sgture,
+            response.appid,
+            response.timestamp,
+            response.noncestr
+          );
+        //  ready();
+        },
+      });
+    }
+
+    // function ready() {
+      wx.ready(function () {
+        //  if (title == null || title == '') {
+        //  alert("title is not null")
+        //  }
+        //
+        //  if (shareLink == null || shareLink == '') {
+        //  alert("shareLink is not null")
+        //  }
+        //分享到---朋友圈，微信好友
+        onMenuShareAppMessage(title, desc, shareLink, shareImgUrl);
+        onMenuShareTimeline(title, desc, shareLink, shareImgUrl);
+      });
+    // }
+
+    function initWeChat(signature, appId, timestamp, noncestr) {
+      wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: appId, // 必填，公众号的唯一标识
+        timestamp: timestamp, // 必填，生成签名的时间戳
+        nonceStr: noncestr, // 必填，生成签名的随机串
+        signature: signature, //必填，签名
+        jsApiList: [
+          // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+          "checkJsApi",
+          "onMenuShareTimeline", //-----------------我们这里用了分享朋友圈
+          "onMenuShareAppMessage", //----------------好友
+        ],
+      });
+    }
+
+    //分享给朋友
+    function onMenuShareAppMessage(title, desc, shareLink, imgUrl) {
+      wx.onMenuShareAppMessage({
+        title: title,
+        desc: desc,
+        link: shareLink,
+        imgUrl: imgUrl,
+        trigger: function (res) {
+          // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
+          // alert('用户点击发送给朋友'+JSON.stringify(res));
+          //  wechatActionCallback('SHARE_FRIEND', 'CLICK');
+        },
+        success: function (res) {
+          // alert('已分享'+JSON.stringify(res));
+          //  wechatActionCallback('SHARE_FRIEND', 'SUCESS');
+        },
+        cancel: function (res) {
+          //  wechatActionCallback('SHARE_FRIEND', 'CANCEL');
+          // alert('已取消'+JSON.stringify(res));
+        },
+        fail: function (res) {
+          //  wechatActionCallback('SHARE_FRIEND', 'FAIL');
+          // alert(JSON.stringify(res));
+        },
+      });
+    }
+
+    //分享到朋友圈
+    function onMenuShareTimeline(title, desc, shareLink, imgUrl) {
+      wx.onMenuShareTimeline({
+        title: title, // 分享标题
+        link: shareLink, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+        imgUrl: imgUrl, // 分享图标
+        desc: desc,
+        trigger: function (res) {
+          // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
+          //  alert('用户点击分享到朋友圈'+JSON.stringify(res));
+          //  wechatActionCallback('SHARE_TIME_LINE', 'CLICK');
+        },
+        success: function (res) {
+          //   alert('已分享'+JSON.stringify(res));
+          //  wechatActionCallback('SHARE_TIME_LINE', 'SUCESS');
+        },
+        cancel: function (res) {
+          //  alert('已取消'+JSON.stringify(res));
+          //  wechatActionCallback('SHARE_TIME_LINE', 'CANCEL');
+        },
+        fail: function (res) {
+          //
+          //  alert(JSON.stringify(res));
+          //  wechatActionCallback('SHARE_TIME_LINE', 'FAIL');
+        },
+      });
+    }
+  </script>
+</html>

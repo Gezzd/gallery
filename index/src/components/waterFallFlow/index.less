@@ -1,0 +1,54 @@
+// xxx-enter: 进入（入场）前的CSS样式；
+// xxx-enter-active:进入动画直到完成时之前的CSS样式;
+// xxx-enter-done:进入完成时的CSS样式;
+// xxx-exit:退出（出场）前的CSS样式;
+// xxx-exit-active:退出动画知道完成时之前的的CSS样式。
+// xxx-exit-done:退出完成时的CSS样式。
+/*组件入场前的状态*/
+.animation-enter {
+  transform: scale(0.8);
+  opacity: 0;
+}
+
+/*组件正在入场时候的动画, all 指的是所有属性一起变化，ease-in-out 先快后慢的一种时间线*/
+.animation-enter-active {
+  transform: scale(1);
+  opacity: 1;
+  transition: all 500ms ease-in-out;
+}
+
+/*组件出场前的动画*/
+.animation-exit {
+  opacity: 1;
+}
+
+/*组件正在出场的动画*/
+.animation-exit-active {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 300ms ease-out;
+}
+
+@left: left;
+@right: right;
+
+.WaterFallFlowItem {
+  float: @left;
+}
+
+.rotate{
+  animation: Rotate 1s linear infinite;
+}
+
+.react-images__blanket{
+  background-color: rgba(0, 0, 0, 1) !important;
+}
+
+@keyframes Rotate{
+  0%{
+    transform: rotate(0);
+  }
+  100%{
+    transform: rotate(360deg);
+  }
+}

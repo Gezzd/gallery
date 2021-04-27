@@ -1,0 +1,17 @@
+@import "../../../node_modules/animate.css/animate.min.css";
+.editImages {
+  display: flex;
+  flex-wrap: wrap;
+  // justify-content: space-around;
+  .box {
+    padding: 10px;
+    position: relative;
+  }
+  .iconBounce:hover {
+    cursor: pointer;
+    color: rgb(219, 38, 38);
+    animation-name: jello;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+}

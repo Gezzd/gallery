@@ -1,0 +1,109 @@
+.App {
+  /* text-align: center; */
+  min-width: 1400px;
+  height: 100vh;
+  overflow-y: hidden;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+#components-layout-demo-custom-trigger .trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+#components-layout-demo-custom-trigger .trigger:hover {
+  color: #1890ff;
+}
+
+#components-layout-demo-custom-trigger .logo {
+  height: 32px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px;
+}
+.site-layout{
+    min-height: 100vh;
+}
+.site-layout .site-layout-background {
+  background: #fff;
+}
+
+.site-layout .site-layout-layout{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ant-layout .ant-layout-sider {
+  background: #ffffff;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+/* // xxx-enter: 进入（入场）前的CSS样式；
+// xxx-enter-active:进入动画直到完成时之前的CSS样式;
+// xxx-enter-done:进入完成时的CSS样式;
+// xxx-exit:退出（出场）前的CSS样式;
+// xxx-exit-active:退出动画知道完成时之前的的CSS样式。
+// xxx-exit-done:退出完成时的CSS样式。 */
+ 
+/* 组件入场前的状态 */
+.fade-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/*组件正在入场时候的动画, all 指的是所有属性一起变化，ease-in-out 先快后慢的一种时间线*/
+.fade-enter-active {
+  opacity: 1;
+  transform: translateY(0px);
+  transition: all 800ms ease-in-out;
+}
+
+/*组件出场前的动画*/
+.fade-exit {
+  opacity: 1;
+}
+
+/*组件正在出场的动画*/
+.fade-exit-active {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 300ms ease-out;
+}
